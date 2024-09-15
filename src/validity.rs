@@ -1,6 +1,16 @@
 use crate::input::Cell;
 use std::usize;
 
+pub fn is_valid_grid(grid: [[Cell; 9]; 9]) -> bool {
+    for r in 0..9 {
+        for c in 0..9 {
+            if !is_valid(grid, r, c, grid[r][c].provided) {
+                return false;
+            }
+        }
+    }
+    true
+}
 pub fn is_valid(grid: [[Cell; 9]; 9], row: usize, column: usize, value: u8) -> bool {
     is_valid_for_row(grid, row, column, value)
         && is_valid_for_column(grid, row, column, value)

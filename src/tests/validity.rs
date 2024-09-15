@@ -1,7 +1,8 @@
 #[cfg(test)]
 mod tests {
-    use crate::input::Cell;
-    use crate::validity::is_valid;
+    use crate::input::{read_grid, Cell};
+    use crate::validity::{is_valid, is_valid_grid};
+    use std::fs::read_to_string;
 
     #[test]
     fn is_invalid_for_row() {
@@ -91,5 +92,19 @@ mod tests {
         }; 9]; 9];
         test_grid[0][0].provided = 1;
         assert_eq!(is_valid(test_grid, 2, 1, 2), true)
+    }
+
+    #[test]
+    fn is_valid_full() {
+        let data = read_to_string("test_grids/fullGrid.txt").unwrap();
+        let result = read_grid(data).unwrap();
+        assert_eq!(is_valid_grid(result), true)
+    }
+
+    #[test]
+    fn is_invalid_full() {
+        let data = read_to_string("test_grids/fullInvalidGrid.txt").unwrap();
+        let result = read_grid(data).unwrap();
+        assert_eq!(is_valid_grid(result), false)
     }
 }
