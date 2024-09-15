@@ -9,9 +9,9 @@ mod tests {
         let result = read_grid(data).unwrap();
         for r in 0..9 {
             for c in 0..9 {
-                assert_eq!(result[r][c].provided,0);
+                assert_eq!(result[r][c].provided, 0);
                 for p in 0..9 {
-                    assert_eq!(result[r][c].possible[p],true);
+                    assert_eq!(result[r][c].possible[p], true);
                 }
             }
         }
@@ -23,9 +23,9 @@ mod tests {
         let result = read_grid(data).unwrap();
         for r in 0..9 {
             for c in 0..9 {
-                assert_ne!(result[r][c].provided,0);
+                assert_ne!(result[r][c].provided, 0);
                 for p in 0..9 {
-                    assert_eq!(result[r][c].possible[p],false);
+                    assert_eq!(result[r][c].possible[p], false);
                 }
             }
         }
@@ -35,23 +35,20 @@ mod tests {
     fn read_invalid_chars() {
         let data = read_to_string("test_grids/invalidChars.txt").unwrap();
         let result = read_grid(data).err();
-        assert_eq!(result,Some(InputError::InvalidLineContent))
-
+        assert_eq!(result, Some(InputError::InvalidLineContent))
     }
 
     #[test]
     fn read_invalid_line_count() {
         let data = read_to_string("test_grids/invalidLineCount.txt").unwrap();
         let result = read_grid(data).err();
-        assert_eq!(result,Some(InputError::InvalidLineCount))
-
+        assert_eq!(result, Some(InputError::InvalidLineCount))
     }
 
     #[test]
     fn read_invalid_line_length() {
         let data = read_to_string("test_grids/invalidLineLength.txt").unwrap();
         let result = read_grid(data).err();
-        assert_eq!(result,Some(InputError::InvalidLineLength))
-
+        assert_eq!(result, Some(InputError::InvalidLineLength))
     }
 }

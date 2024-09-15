@@ -36,7 +36,7 @@ pub fn read_grid(content: String) -> Result<[[Cell; 9]; 9], InputError> {
                     for p in 0..9 {
                         result_grid[r][c].possible[p] = match v {
                             0 => true,
-                            _=>false
+                            _ => false,
                         }
                     }
                 }
