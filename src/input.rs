@@ -52,26 +52,3 @@ pub struct Cell {
     pub provided: usize,
     pub possible: [bool; 9],
 }
-
-#[derive(Clone, Copy, Debug)]
-pub struct Block ((Cell,Cell,Cell),(Cell,Cell,Cell),(Cell,Cell,Cell));
-
-#[derive(Clone, Copy, Debug)]
-pub struct Grid ((Block,Block,Block),(Block,Block,Block),(Block,Block,Block));
-
-impl Grid {
-    pub fn print(&self) {
-    for r in 0..9 {
-            for c in 0..9 {
-                print!("{}",self[r][c].provided);
-        if c % 3 == 0 {
-            print!("|");
-        }
-            }
-        if r % 3 == 0 {
-            print!("___________");
-        }
-        }
-        print!("\n");
-    }
-}

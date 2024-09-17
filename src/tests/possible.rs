@@ -53,6 +53,5 @@ mod tests {
                 }
             }
         }
-        test_grid.print();
     }
 }
