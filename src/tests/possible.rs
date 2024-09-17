@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
     use crate::input::{read_grid, Cell};
-    use crate::possible::{calculate_possible, fill_inferred};
+    use crate::possible::{calculate_possible_for_cells, fill_inferred};
     use std::fs::read_to_string;
 
     #[test]
@@ -28,7 +28,7 @@ mod tests {
         test_grid[3][1].provided = 3;
         test_grid[4][1].provided = 9;
 
-        test_grid = calculate_possible(test_grid);
+        test_grid = calculate_possible_for_cells(test_grid);
         for r in 0..3 {
             for c in 0..3 {
                 for n in 1..10 {
