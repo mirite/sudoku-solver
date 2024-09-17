@@ -1,7 +1,8 @@
 #[cfg(test)]
 mod tests {
-    use crate::input::Cell;
-    use crate::possible::calculate_possible;
+    use crate::input::{read_grid, Cell};
+    use crate::possible::{calculate_possible, fill_inferred};
+    use std::fs::read_to_string;
 
     #[test]
     fn can_calculate_possible_values() {
@@ -27,7 +28,6 @@ mod tests {
         test_grid[3][1].provided = 3;
         test_grid[4][1].provided = 9;
 
-
         test_grid = calculate_possible(test_grid);
         for r in 0..3 {
             for c in 0..3 {
@@ -51,6 +51,25 @@ mod tests {
                         c
                     );
                 }
+            }
+        }
+    }
+
+    #[test]
+    fn can_solve() {
+        let data = read_to_string("test_grids/easyToSolve.txt").unwrap();
+        let mut grid = read_grid(data).unwrap();
+        let result = fill_inferred(grid);
+        for r in 0..9 {
+            for c in 0..9 {
+                print!("{}", result[r][c].provided);
+                if c%3==2 && c!= 8 {
+                    print!("|");
+                }
+            }
+            print!("\n");
+            if r%3==2 && r != 8 {
+                println!("-----------")
             }
         }
     }

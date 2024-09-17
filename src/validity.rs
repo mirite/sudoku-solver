@@ -1,6 +1,5 @@
-
-use std::usize;
 use crate::input::Cell;
+use std::usize;
 
 pub fn is_valid_grid(grid: [[Cell; 9]; 9]) -> bool {
     for r in 0..9 {
