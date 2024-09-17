@@ -1,7 +1,7 @@
-use crate::input::Cell;
+use crate::input::{Cell, Grid};
 use std::usize;
 
-pub fn is_valid_grid(grid: [[Cell; 9]; 9]) -> bool {
+pub fn is_valid_grid(grid: Grid) -> bool {
     for r in 0..9 {
         for c in 0..9 {
             if !is_valid(grid, r, c, grid[r][c].provided) {
@@ -11,13 +11,13 @@ pub fn is_valid_grid(grid: [[Cell; 9]; 9]) -> bool {
     }
     true
 }
-pub fn is_valid(grid: [[Cell; 9]; 9], row: usize, column: usize, value: u8) -> bool {
+pub fn is_valid(grid: Grid, row: usize, column: usize, value: usize) -> bool {
     is_valid_for_row(grid, row, column, value)
         && is_valid_for_column(grid, row, column, value)
         && is_valid_for_square(grid, row, column, value)
 }
 
-pub fn is_valid_for_row(grid: [[Cell; 9]; 9], row: usize, column: usize, value: u8) -> bool {
+pub fn is_valid_for_row(grid: Grid, row: usize, column: usize, value: usize) -> bool {
     for col in 0..9 {
         if grid[row][col].provided == value && col != column {
             return false;
@@ -26,7 +26,7 @@ pub fn is_valid_for_row(grid: [[Cell; 9]; 9], row: usize, column: usize, value: 
     true
 }
 
-pub fn is_valid_for_column(grid: [[Cell; 9]; 9], row: usize, column: usize, value: u8) -> bool {
+pub fn is_valid_for_column(grid: Grid, row: usize, column: usize, value: usize) -> bool {
     for r in 0..9 {
         if grid[r][column].provided == value && r != row {
             return false;
@@ -35,7 +35,7 @@ pub fn is_valid_for_column(grid: [[Cell; 9]; 9], row: usize, column: usize, valu
     true
 }
 
-pub fn is_valid_for_square(grid: [[Cell; 9]; 9], row: usize, column: usize, value: u8) -> bool {
+pub fn is_valid_for_square(grid: Grid, row: usize, column: usize, value: usize) -> bool {
     let r_start = usize::from(row / 3) * 3;
     let r_end = r_start + 3;
     let c_start = usize::from(column / 3) * 3;

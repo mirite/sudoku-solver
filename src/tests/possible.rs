@@ -20,9 +20,39 @@ mod tests {
         // Checking for column
         //Checking for cell
 
+        test_grid[0][4].provided = 8;
+        test_grid[4][2].provided = 8;
+        test_grid[0][5].provided = 9;
+        test_grid[2][5].provided = 3;
+        test_grid[3][1].provided = 3;
+        test_grid[4][1].provided = 9;
+
+
         test_grid = calculate_possible(test_grid);
-        assert_eq!(test_grid[0][2].possible[3 - 1], true); //Need to check for all the falses too.
-        assert_eq!(test_grid[2][1].possible[8 - 1], true);
-        assert_eq!(test_grid[2][2].possible[9 - 1], true);
+        for r in 0..3 {
+            for c in 0..3 {
+                for n in 1..10 {
+                    let expected = if r == 0 && c == 2 && n == 3 {
+                        true
+                    } else if r == 2 && c == 1 && n == 8 {
+                        true
+                    } else if r == 2 && c == 2 && n == 9 {
+                        true
+                    } else {
+                        false
+                    };
+                    assert_eq!(
+                        test_grid[r][c].possible[n - 1],
+                        expected,
+                        "Expected for {} to be {} at ({},{})",
+                        n,
+                        expected,
+                        r,
+                        c
+                    );
+                }
+            }
+        }
+        test_grid.print();
     }
 }

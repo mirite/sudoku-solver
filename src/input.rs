@@ -20,9 +20,9 @@ pub fn read_grid(content: String) -> Result<[[Cell; 9]; 9], InputError> {
 
     for r in 0..9 {
         for c in 0..9 {
-            let cell_value: Result<u8, InputError> = match lines[r].chars().nth(c) {
+            let cell_value: Result<usize, InputError> = match lines[r].chars().nth(c) {
                 Some(char) => match char.to_digit(10) {
-                    Some(digit) => match u8::try_from(digit) {
+                    Some(digit) => match usize::try_from(digit) {
                         Ok(valid_digit) => Ok(valid_digit),
                         Err(_e) => Err(InputError::InvalidLineContent),
                     },
@@ -49,6 +49,29 @@ pub fn read_grid(content: String) -> Result<[[Cell; 9]; 9], InputError> {
 
 #[derive(Clone, Copy, Debug)]
 pub struct Cell {
-    pub provided: u8,
+    pub provided: usize,
     pub possible: [bool; 9],
+}
+
+#[derive(Clone, Copy, Debug)]
+pub struct Block ((Cell,Cell,Cell),(Cell,Cell,Cell),(Cell,Cell,Cell));
+
+#[derive(Clone, Copy, Debug)]
+pub struct Grid ((Block,Block,Block),(Block,Block,Block),(Block,Block,Block));
+
+impl Grid {
+    pub fn print(&self) {
+    for r in 0..9 {
+            for c in 0..9 {
+                print!("{}",self[r][c].provided);
+        if c % 3 == 0 {
+            print!("|");
+        }
+            }
+        if r % 3 == 0 {
+            print!("___________");
+        }
+        }
+        print!("\n");
+    }
 }
