@@ -1,7 +1,9 @@
 #[cfg(test)]
 mod tests {
     use crate::input::{read_grid, Cell};
-    use crate::possible::{calculate_possible_for_cells, fill_inferred};
+    use crate::possible::{
+        calculate_possible_for_cells, fill_inferred, get_possible_placements_for_value,
+    };
     use std::fs::read_to_string;
 
     #[test]
@@ -63,13 +65,34 @@ mod tests {
         for r in 0..9 {
             for c in 0..9 {
                 print!("{}", result[r][c].provided);
-                if c%3==2 && c!= 8 {
+                if c % 3 == 2 && c != 8 {
                     print!("|");
                 }
             }
             print!("\n");
-            if r%3==2 && r != 8 {
+            if r % 3 == 2 && r != 8 {
                 println!("-----------")
+            }
+        }
+    }
+
+    #[test]
+    fn is_only_possible() {
+        let data = read_to_string("test_grids/easyToSolve.txt").unwrap();
+        let grid = read_grid(data).unwrap();
+        let possibles = get_possible_placements_for_value(grid, 7);
+        for r in 0..9 {
+            for c in 0..9 {
+                let expected = if (r == 2 && c == 2) || (r == 5 && c == 3) {
+                    true
+                } else {
+                    false
+                };
+                assert_eq!(
+                    possibles[r][c], expected,
+                    "Expected for {} to be {} at ({},{})",
+                    possibles[r][c], expected, r, c
+                )
             }
         }
     }
