@@ -67,8 +67,9 @@ fn is_only_possible_in_square(grid: [[bool; 9]; 9], row: usize, column: usize) -
     !first
 }
 
-fn is_only_possible_placement(grid: [[bool; 9]; 9], row: usize, column: usize) -> bool {
-    is_only_possible_in_row(grid, row)
+pub fn is_only_possible_placement(grid: [[bool; 9]; 9], row: usize, column: usize) -> bool {
+    grid[row][column]
+        && is_only_possible_in_row(grid, row)
         && is_only_possible_in_column(grid, column)
         && is_only_possible_in_square(grid, row, column)
 }

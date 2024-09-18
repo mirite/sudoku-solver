@@ -3,6 +3,7 @@ mod tests {
     use crate::input::{read_grid, Cell};
     use crate::possible::{
         calculate_possible_for_cells, fill_inferred, get_possible_placements_for_value,
+        is_only_possible_placement,
     };
     use std::fs::read_to_string;
 
@@ -60,13 +61,16 @@ mod tests {
     #[test]
     fn can_solve() {
         let data = read_to_string("test_grids/easyToSolve.txt").unwrap();
+        let solved_data = read_to_string("test_grids/easyToSolveSolved.txt").unwrap();
         let mut grid = read_grid(data).unwrap();
+        let solved_grid = read_grid(solved_data).unwrap();
         let result = fill_inferred(grid);
         for r in 0..9 {
             for c in 0..9 {
                 print!("{}", result[r][c].provided);
                 if c % 3 == 2 && c != 8 {
                     print!("|");
+                    assert_eq!(result[r][c].provided, solved_grid[r][c].provided);
                 }
             }
             print!("\n");
@@ -77,13 +81,21 @@ mod tests {
     }
 
     #[test]
-    fn is_only_possible() {
+    fn calculate_possible_placements() {
         let data = read_to_string("test_grids/easyToSolve.txt").unwrap();
-        let grid = read_grid(data).unwrap();
+        let mut grid = read_grid(data).unwrap();
+        grid = calculate_possible_for_cells(grid);
         let possibles = get_possible_placements_for_value(grid, 7);
         for r in 0..9 {
             for c in 0..9 {
-                let expected = if (r == 2 && c == 2) || (r == 5 && c == 3) {
+                let expected = if (r == 2 && c == 2)
+                    || (r == 5 && c == 3)
+                    || (r == 7 && c == 0)
+                    || (r == 7 && c == 2)
+                    || (r == 7 && c == 7)
+                    || (r == 8 && c == 2)
+                    || (r == 8 && c == 7)
+                {
                     true
                 } else {
                     false
@@ -93,6 +105,29 @@ mod tests {
                     "Expected for {} to be {} at ({},{})",
                     possibles[r][c], expected, r, c
                 )
+            }
+        }
+    }
+
+    #[test]
+    fn test_is_only_possible_placement() {
+        let data = read_to_string("test_grids/easyToSolve.txt").unwrap();
+        let mut grid = read_grid(data).unwrap();
+        grid = calculate_possible_for_cells(grid);
+        let possibles = get_possible_placements_for_value(grid, 7);
+        for r in 0..9 {
+            for c in 0..9 {
+                let expected = if (r == 2 && c == 2) || (r == 5 && c == 3) {
+                    true
+                } else {
+                    false
+                };
+                let result = is_only_possible_placement(possibles, r, c);
+                assert_eq!(
+                    result, expected,
+                    "Expected for {} to be {} at ({},{})",
+                    result, expected, r, c
+                );
             }
         }
     }
