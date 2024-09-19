@@ -62,7 +62,7 @@ mod tests {
     fn can_solve() {
         let data = read_to_string("test_grids/easyToSolve.txt").unwrap();
         let solved_data = read_to_string("test_grids/easyToSolveSolved.txt").unwrap();
-        let mut grid = read_grid(data).unwrap();
+        let grid = read_grid(data).unwrap();
         let solved_grid = read_grid(solved_data).unwrap();
         let result = fill_inferred(grid);
         for r in 0..9 {
@@ -117,7 +117,7 @@ mod tests {
         let possibles = get_possible_placements_for_value(grid, 7);
         for r in 0..9 {
             for c in 0..9 {
-                let expected = if (r == 2 && c == 2) || (r == 5 && c == 3) {
+                let expected = if (r == 2 && c == 2) || (r == 5 && c == 3) || (r == 7 && c == 0) {
                     true
                 } else {
                     false

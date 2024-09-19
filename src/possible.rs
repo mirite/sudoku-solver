@@ -64,14 +64,18 @@ fn is_only_possible_in_square(grid: [[bool; 9]; 9], row: usize, column: usize) -
             }
         }
     }
+
     !first
 }
 
 pub fn is_only_possible_placement(grid: [[bool; 9]; 9], row: usize, column: usize) -> bool {
-    grid[row][column]
-        && is_only_possible_in_row(grid, row)
-        && is_only_possible_in_column(grid, column)
-        && is_only_possible_in_square(grid, row, column)
+    if !grid[row][column] {
+        return false;
+    }
+    let only_in_row = is_only_possible_in_row(grid, row);
+    let only_in_column = is_only_possible_in_column(grid, column);
+    let only_in_square = is_only_possible_in_square(grid, row, column);
+    only_in_row || only_in_column || only_in_square
 }
 
 pub fn fill_inferred(mut grid: [[Cell; 9]; 9]) -> [[Cell; 9]; 9] {
@@ -90,14 +94,6 @@ pub fn fill_inferred(mut grid: [[Cell; 9]; 9]) -> [[Cell; 9]; 9] {
                         if is_only_possible_placement(possible_placements, r, c) {
                             grid[r][c].provided = n;
                         }
-                        if grid[r][c].possible[n - 1] == true {
-                            value_count = value_count + 1;
-                            last_available = n - 1;
-                        }
-                    }
-                    //Or if it's the only possible place for that value
-                    if value_count == 1 {
-                        grid[r][c].provided = last_available;
                     }
                 }
             }
