@@ -84,6 +84,8 @@ pub fn fill_inferred(mut grid: [[Cell; 9]; 9]) -> [[Cell; 9]; 9] {
     while unsolved != last_unsolved {
         last_unsolved = unsolved;
         grid = calculate_possible_for_cells(grid);
+        // If there are any cells with no possible value OR if two cells is the same group share
+        // one possible value, return None.
         for r in 0..9 {
             for c in 0..9 {
                 if grid[r][c].provided == 0 {
@@ -100,6 +102,9 @@ pub fn fill_inferred(mut grid: [[Cell; 9]; 9]) -> [[Cell; 9]; 9] {
         }
         unsolved = get_unsolved_count(grid);
     }
+    // If the unsolved is 0, return the grid.
+    // cycle through the possible values in the first unsolved cell recursivly, one of the possible
+    // values WILL be correct.
     grid
 }
 
