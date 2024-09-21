@@ -12,8 +12,6 @@ pub fn fill_inferred(mut grid: [[Cell; 9]; 9]) -> Option<[[Cell; 9]; 9]> {
         for r in 0..9 {
             for c in 0..9 {
                 if grid[r][c].provided == 0 {
-                    let mut value_count = 0;
-                    let mut last_available = 0;
                     for n in 1..10 {
                         let possible_placements =
                             possible::get_possible_placements_for_value(grid, n);
