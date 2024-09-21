@@ -2,11 +2,10 @@
 mod tests {
     use crate::input::{read_grid, Cell};
     use crate::possible::{
-        calculate_possible_for_cells, fill_inferred, get_possible_placements_for_value,
-        is_only_possible_placement,
+        calculate_possible_for_cells, get_possible_placements_for_value, is_only_possible_placement,
     };
+    use crate::solving::fill_inferred;
     use std::fs::read_to_string;
-    use std::path::Path;
 
     #[test]
     fn can_calculate_possible_values() {
