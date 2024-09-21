@@ -6,13 +6,15 @@ mod tests {
     #[test]
     fn has_two_possibles() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
-            provided: 0,
+            provided: 1,
             possible: [false; 9],
         }; 9]; 9];
-
+// There's something wrong with this test. It should be failing ATM
         //Two cells in the same row where the only possible value is one.
         test_grid[0][0].possible[0] = true;
+        test_grid[0][0].provided = 0;
         test_grid[3][0].possible[0] = true;
+        test_grid[3][0].provided = 0;
         assert_eq!(is_unsolvable(test_grid), true);
     }
 
