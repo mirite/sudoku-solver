@@ -1,7 +1,7 @@
 use crate::input::Cell;
 use crate::possible;
 
-pub fn fill_inferred(mut grid: [[Cell; 9]; 9]) -> [[Cell; 9]; 9] {
+pub fn fill_inferred(mut grid: [[Cell; 9]; 9]) -> Option<[[Cell; 9]; 9]> {
     let mut last_unsolved = 0;
     let mut unsolved = get_unsolved_count(grid);
     while unsolved != last_unsolved {
@@ -29,7 +29,7 @@ pub fn fill_inferred(mut grid: [[Cell; 9]; 9]) -> [[Cell; 9]; 9] {
     // If the unsolved is 0, return the grid.
     // cycle through the possible values in the first unsolved cell recursivly, one of the possible
     // values WILL be correct.
-    grid
+    Some(grid)
 }
 
 fn get_unsolved_count(grid: [[Cell; 9]; 9]) -> i32 {
