@@ -1,6 +1,7 @@
 use crate::input::Cell;
 use crate::math_helpers::get_square_ranges;
 
+/// Determines if a grid is in an unsolvable state.
 pub fn is_unsolvable(grid: [[Cell; 9]; 9]) -> bool {
     for r in 0..9 {
         for c in 0..9 {
