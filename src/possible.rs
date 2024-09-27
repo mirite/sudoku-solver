@@ -1,4 +1,5 @@
 use crate::input::Cell;
+use crate::math_helpers::get_square_ranges;
 use crate::validity::is_valid;
 
 pub fn calculate_possible_for_cells(mut grid: [[Cell; 9]; 9]) -> [[Cell; 9]; 9] {
@@ -49,10 +50,7 @@ fn is_only_possible_in_column(grid: [[bool; 9]; 9], column: usize) -> bool {
 }
 
 fn is_only_possible_in_square(grid: [[bool; 9]; 9], row: usize, column: usize) -> bool {
-    let r_start = usize::from(row / 3) * 3;
-    let r_end = r_start + 3;
-    let c_start = usize::from(column / 3) * 3;
-    let c_end = c_start + 3;
+    let (r_start, r_end, c_start, c_end) = get_square_ranges(row, column);
     let mut first = true;
     for r in r_start..r_end {
         for c in c_start..c_end {

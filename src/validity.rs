@@ -1,4 +1,5 @@
 use crate::input::Cell;
+use crate::math_helpers::get_square_ranges;
 use std::usize;
 
 pub fn is_valid_grid(grid: [[Cell; 9]; 9]) -> bool {
@@ -36,10 +37,7 @@ pub fn is_valid_for_column(grid: [[Cell; 9]; 9], row: usize, column: usize, valu
 }
 
 pub fn is_valid_for_square(grid: [[Cell; 9]; 9], row: usize, column: usize, value: usize) -> bool {
-    let r_start = usize::from(row / 3) * 3;
-    let r_end = r_start + 3;
-    let c_start = usize::from(column / 3) * 3;
-    let c_end = c_start + 3;
+    let (r_start, r_end, c_start, c_end) = get_square_ranges(row, column);
     for r in r_start..r_end {
         for c in c_start..c_end {
             if grid[r][c].provided == value && r != row && c != column {
