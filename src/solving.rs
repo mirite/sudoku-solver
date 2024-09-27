@@ -1,5 +1,5 @@
 use crate::input::{print_grid, Cell};
-use crate::possible;
+use crate::possible::{calculate_possible_for_cells, is_only_possible_placement};
 use crate::solved_detection::is_solved;
 use crate::unsolvable_detection::is_unsolvable;
 
@@ -16,8 +16,8 @@ pub fn solve_grid(mut grid: [[Cell; 9]; 9]) -> Option<[[Cell; 9]; 9]> {
                 if grid[r][c].provided == 0 {
                     for n in 1..10 {
                         let possible_placements =
-                            possible::get_possible_placements_for_value(grid, n);
-                        if possible::is_only_possible_placement(possible_placements, r, c) {
+                            get_possible_placements_for_value(grid, n);
+                        if is_only_possible_placement(possible_placements, r, c) {
                             grid[r][c].provided = n;
                         }
                     }
@@ -54,7 +54,7 @@ pub fn speculative_solve(grid: [[Cell; 9]; 9]) -> Option<[[Cell; 9]; 9]> {
     None
 }
 
-pub fn get_unsolved_count(grid: [[Cell; 9]; 9]) -> i32 {
+pub fn get_unsolved_count(grid: [[Cell; 9]; 9]) -> u8 {
     let mut count = 0;
     for r in 0..9 {
         for c in 0..9 {
