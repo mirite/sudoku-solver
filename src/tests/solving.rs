@@ -34,15 +34,7 @@ mod tests {
         let solved_grid = read_grid(solved_data).unwrap();
         for r in 0..9 {
             for c in 0..9 {
-                print!("{}", result[r][c].provided);
-                if c % 3 == 2 && c != 8 {
-                    print!("|");
-                    assert_eq!(result[r][c].provided, solved_grid[r][c].provided);
-                }
-            }
-            print!("\n");
-            if r % 3 == 2 && r != 8 {
-                println!("-----------")
+                assert_eq!(result[r][c].provided, solved_grid[r][c].provided);
             }
         }
     }

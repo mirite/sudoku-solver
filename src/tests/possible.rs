@@ -88,6 +88,20 @@ mod tests {
     }
 
     #[test]
+    fn can_handle_every_possible() {
+        let data = read_to_string("test_grids/allEmpty.txt").unwrap();
+        let mut grid = read_grid(data).unwrap();
+        grid = calculate_possible_for_cells(grid);
+        for r in 0..9 {
+            for c in 0..9 {
+                for n in 1..10 {
+                    assert_eq!(grid[r][c].possible[n - 1], true);
+                }
+            }
+        }
+    }
+
+    #[test]
     fn test_is_only_possible_placement() {
         let data = read_to_string("test_grids/easyToSolve.txt").unwrap();
         let mut grid = read_grid(data).unwrap();
