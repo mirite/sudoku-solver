@@ -8,7 +8,7 @@ pub fn is_unsolvable(grid: [[Cell; 9]; 9]) -> bool {
             }
             let mut has_possible = false;
             for n in 1..9 {
-                if grid[r][c].possible[n] {
+                if grid[r][c].possible[n - 1] {
                     has_possible = true;
                 }
             }
