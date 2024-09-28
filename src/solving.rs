@@ -36,7 +36,7 @@ pub fn solve_grid(mut grid: [[Cell; 9]; 9]) -> Option<[[Cell; 9]; 9]> {
 }
 
 pub fn speculative_solve(grid: [[Cell; 9]; 9]) -> Option<[[Cell; 9]; 9]> {
-    let (unsolved_row, unsolved_column) = get_first_unsolved(grid);
+    let (unsolved_row, unsolved_column) = get_next_unsolved(grid);
 
     for value in 1..9 {
         // If value isn't possible for this cell, it isn't a viable future.
@@ -66,14 +66,19 @@ pub fn get_unsolved_count(grid: [[Cell; 9]; 9]) -> u8 {
     count
 }
 
-/// Gets the address of the first cell that doesn't have a known value.
-fn get_first_unsolved(grid: [[Cell; 9]; 9]) -> (usize, usize) {
+/// Gets the address of the first cell with the lowest number of possible values that doesn't have a known value.
+fn get_next_unsolved(grid: [[Cell; 9]; 9]) -> (usize, usize) {
+    let mut next_row = 0;
+    let mut next_col = 0;
+    let mut possibles = 10;
     for row in 0..9 {
         for column in 0..9 {
-            if grid[row][column].provided == 0 {
-                return (row, column);
+            if grid[row][column].provided == 0 && possibles < possible_value_count_for_cell {
+                next_col = column;
+                next_row = row;
+                possibles = possible_value_count_for_cell
             }
         }
     }
-    (0, 0)
+    (next_row, next_col)
 }
