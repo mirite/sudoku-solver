@@ -67,8 +67,7 @@ fn is_conflicting_cell(
     checking_against_row: usize,
     checking_against_column: usize,
 ) -> bool {
-    let (_possible_values_row, last_possible_value) =
-        get_possible_count(grid, current_row, current_column);
+    let (_, last_possible_value) = get_possible_count(grid, current_row, current_column);
     if checking_against_row == current_row && checking_against_column == current_column {
         return false;
     }
@@ -84,17 +83,17 @@ pub fn get_possible_count(
     row: usize,
     col: usize,
 ) -> (usize, usize) {
-    let mut possible_values: usize = 0;
+    let mut possible_value_count: usize = 0;
     let mut last_possible_value: usize = 0;
-    for n in CELL_VALUE_RANGE {
-        if grid[row][col].candidates[n - 1] {
-            possible_values = possible_values + 1;
-            last_possible_value = n;
+    for value in CELL_VALUE_RANGE {
+        if grid[row][col].candidates[value - 1] {
+            possible_value_count = possible_value_count + 1;
+            last_possible_value = value;
         }
     }
     (
-        possible_values,
-        if possible_values == 1 {
+        possible_value_count,
+        if possible_value_count == 1 {
             last_possible_value
         } else {
             0
