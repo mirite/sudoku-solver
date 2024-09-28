@@ -54,16 +54,25 @@ pub struct Cell {
 }
 
 pub fn print_grid(grid: [[Cell; 9]; 9]) {
-    for r in 0..9 {
-        for c in 0..9 {
-            print!("{}", grid[r][c].provided);
-            if c % 3 == 2 && c != 8 {
-                print!("|");
-            }
+    loop_through_grid(|r, c| {
+        print!("{}", grid[r][c].provided);
+        if c % 3 == 2 && c != 8 {
+            print!("|");
         }
         print!("\n");
         if r % 3 == 2 && r != 8 {
             println!("-----------")
+        }
+    });
+}
+
+pub fn loop_through_grid<F>(func: F)
+where
+    F: Fn(usize, usize),
+{
+    for r in 0..9 {
+        for c in 0..9 {
+            func(r, c);
         }
     }
 }

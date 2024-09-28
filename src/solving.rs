@@ -1,4 +1,4 @@
-use crate::input::{print_grid, Cell};
+use crate::input::Cell;
 use crate::possible::{
     calculate_possible_for_cells, get_possible_placements_for_value, is_only_possible_placement,
 };
