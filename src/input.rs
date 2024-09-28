@@ -1,8 +1,11 @@
+use crate::validity::is_valid_grid;
+
 #[derive(Debug, PartialEq)]
 pub enum InputError {
     InvalidLineCount,
     InvalidLineLength,
     InvalidLineContent,
+    InvalidLayout,
 }
 
 pub fn read_grid(content: String) -> Result<[[Cell; 9]; 9], InputError> {
@@ -44,7 +47,11 @@ pub fn read_grid(content: String) -> Result<[[Cell; 9]; 9], InputError> {
             }
         }
     }
-    Ok(result_grid)
+    if is_valid_grid(result_grid) {
+        Ok(result_grid)
+    } else {
+        Err(InputError::InvalidLayout)
+    }
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -54,25 +61,23 @@ pub struct Cell {
 }
 
 pub fn print_grid(grid: [[Cell; 9]; 9]) {
-    loop_through_grid(|r, c| {
-        print!("{}", grid[r][c].provided);
-        if c % 3 == 2 && c != 8 {
-            print!("|");
-        }
-        print!("\n");
-        if r % 3 == 2 && r != 8 {
-            println!("-----------")
-        }
-    });
+    println!("{}", grid_to_string(grid));
 }
 
-pub fn loop_through_grid<F>(func: F)
-where
-    F: Fn(usize, usize),
-{
+pub fn grid_to_string(grid: [[Cell; 9]; 9]) -> String {
+    let mut result: String = String::from("");
     for r in 0..9 {
         for c in 0..9 {
-            func(r, c);
+            result.push_str(&format!("{}", grid[r][c].provided));
+            if c % 3 == 2 && c != 8 {
+                result.push_str("|");
+            }
+            result.push_str("\n");
+            if r % 3 == 2 && r != 8 {
+                result.push_str("-----------\n");
+            }
         }
     }
+
+    result
 }

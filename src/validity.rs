@@ -5,7 +5,7 @@ use std::usize;
 pub fn is_valid_grid(grid: [[Cell; 9]; 9]) -> bool {
     for r in 0..9 {
         for c in 0..9 {
-            if !is_valid(grid, r, c, grid[r][c].provided) {
+            if grid[r][c].provided != 0 && !is_valid(grid, r, c, grid[r][c].provided) {
                 return false;
             }
         }

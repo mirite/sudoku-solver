@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::input::{read_grid, Cell};
+    use crate::input::{read_grid, Cell, InputError};
     use crate::validity::{is_valid, is_valid_grid};
     use std::fs::read_to_string;
 
@@ -104,7 +104,8 @@ mod tests {
     #[test]
     fn is_invalid_full() {
         let data = read_to_string("test_grids/fullInvalidGrid.txt").unwrap();
-        let result = read_grid(data).unwrap();
-        assert_eq!(is_valid_grid(result), false)
+        let result = read_grid(data);
+        assert_eq!(result.is_err(), true);
+        assert_eq!(result.err(), Some(InputError::InvalidLayout));
     }
 }
