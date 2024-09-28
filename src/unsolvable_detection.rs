@@ -25,7 +25,6 @@ pub fn is_unsolvable(grid: [[Cell; 9]; 9]) -> bool {
                 //Check for other cells in the same coumn
                 for row in 0..9 {
                     if is_conflicting_cell(grid, r, c, row, c) {
-                        print_grid(grid);
                         return true;
                     }
                 }

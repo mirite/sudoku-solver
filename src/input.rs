@@ -72,9 +72,11 @@ pub fn grid_to_string(grid: [[Cell; 9]; 9]) -> String {
             if c % 3 == 2 && c != 8 {
                 result.push_str("|");
             }
+            if c == 8 {
             result.push_str("\n");
             if r % 3 == 2 && r != 8 {
                 result.push_str("-----------\n");
+            }
             }
         }
     }

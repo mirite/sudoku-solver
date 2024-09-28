@@ -27,6 +27,7 @@ mod tests {
         let data = read_to_string("test_grids/extremeToSolve.txt").unwrap();
         let grid = read_grid(data).unwrap();
         let result = solve_grid(grid);
+        print_grid(result.unwrap());
         assert_eq!(result.is_some(), true);
         compare_grids(result.unwrap(), "test_grids/extremeToSolveSolved.txt");
     }
