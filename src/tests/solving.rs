@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crate::input::{read_grid, Cell};
+    use crate::input::{print_grid, read_grid, Cell};
     use crate::solving::solve_grid;
     use std::fs::read_to_string;
 
@@ -9,6 +9,7 @@ mod tests {
         let data = read_to_string("test_grids/easyToSolve.txt").unwrap();
         let grid = read_grid(data).unwrap();
         let result = solve_grid(grid);
+        assert_eq!(result.is_some(), true);
         compare_grids(result.unwrap(), "test_grids/easyToSolveSolved.txt")
     }
 
@@ -17,7 +18,27 @@ mod tests {
         let data = read_to_string("test_grids/hardToSolve.txt").unwrap();
         let grid = read_grid(data).unwrap();
         let result = solve_grid(grid);
+        assert_eq!(result.is_some(), true);
         compare_grids(result.unwrap(), "test_grids/hardToSolveSolved.txt");
+    }
+
+    #[test]
+    fn can_solve_3() {
+        let data = read_to_string("test_grids/extremeToSolve.txt").unwrap();
+        let grid = read_grid(data).unwrap();
+        let result = solve_grid(grid);
+        assert_eq!(result.is_some(), true);
+        compare_grids(result.unwrap(), "test_grids/extremeToSolveSolved.txt");
+    }
+
+    #[test]
+    fn can_solve_4() {
+        let data = read_to_string("test_grids/extremeToSolve2.txt").unwrap();
+        let grid = read_grid(data).unwrap();
+        let result = solve_grid(grid);
+        assert_eq!(result.is_some(), true);
+        print_grid(result.unwrap());
+        compare_grids(result.unwrap(), "test_grids/extremeToSolve2Solved.txt");
     }
 
     #[test]
@@ -34,7 +55,11 @@ mod tests {
         let solved_grid = read_grid(solved_data).unwrap();
         for r in 0..9 {
             for c in 0..9 {
-                assert_eq!(result[r][c].provided, solved_grid[r][c].provided);
+                assert_eq!(
+                    result[r][c].provided, solved_grid[r][c].provided,
+                    "Expected the value at ({},{}) to be {}. Got {}",
+                    r, c, result[r][c].provided, solved_grid[r][c].provided
+                );
             }
         }
     }

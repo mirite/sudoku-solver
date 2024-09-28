@@ -1,4 +1,4 @@
-use crate::input::Cell;
+use crate::input::{print_grid, Cell};
 use crate::math_helpers::get_square_ranges;
 
 /// Determines if a grid is in an unsolvable state.
@@ -22,9 +22,10 @@ pub fn is_unsolvable(grid: [[Cell; 9]; 9]) -> bool {
                     }
                 }
 
-                //Check for other cells in the same row
+                //Check for other cells in the same coumn
                 for row in 0..9 {
                     if is_conflicting_cell(grid, r, c, row, c) {
+                        print_grid(grid);
                         return true;
                     }
                 }
@@ -65,10 +66,10 @@ fn is_conflicting_cell(
 
 /// Gets the number of possible values for the cell. If that number is equal to one,
 /// the second item in the tuple will be that only possible value.
-fn get_possible_count(grid: [[Cell; 9]; 9], row: usize, col: usize) -> (usize, usize) {
+pub fn get_possible_count(grid: [[Cell; 9]; 9], row: usize, col: usize) -> (usize, usize) {
     let mut possible_values: usize = 0;
     let mut last_possible_value: usize = 0;
-    for n in 1..9 {
+    for n in 1..10 {
         if grid[row][col].possible[n - 1] {
             possible_values = possible_values + 1;
             last_possible_value = n;
