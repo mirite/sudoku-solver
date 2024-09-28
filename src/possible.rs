@@ -1,12 +1,14 @@
 use crate::input::Cell;
 use crate::math_helpers::get_square_ranges;
 use crate::validity::is_valid;
+use crate::{BLANK_CELL_VALUE, CELL_VALUE_RANGE, GRID_SIZE_RANGE};
 
 pub fn calculate_possible_for_cells(mut grid: [[Cell; 9]; 9]) -> [[Cell; 9]; 9] {
-    for r in 0..9 {
-        for c in 0..9 {
-            for n in 1..10 {
-                grid[r][c].possible[n - 1] = grid[r][c].provided == 0 && is_valid(grid, r, c, n);
+    for r in GRID_SIZE_RANGE {
+        for c in GRID_SIZE_RANGE {
+            for n in CELL_VALUE_RANGE {
+                grid[r][c].possible[n - 1] =
+                    grid[r][c].provided == BLANK_CELL_VALUE && is_valid(grid, r, c, n);
             }
         }
     }
@@ -15,8 +17,8 @@ pub fn calculate_possible_for_cells(mut grid: [[Cell; 9]; 9]) -> [[Cell; 9]; 9] 
 
 pub fn get_possible_placements_for_value(grid: [[Cell; 9]; 9], value: usize) -> [[bool; 9]; 9] {
     let mut result = [[false; 9]; 9];
-    for r in 0..9 {
-        for c in 0..9 {
+    for r in GRID_SIZE_RANGE {
+        for c in GRID_SIZE_RANGE {
             result[r][c] = grid[r][c].possible[value - 1];
         }
     }
@@ -25,7 +27,7 @@ pub fn get_possible_placements_for_value(grid: [[Cell; 9]; 9], value: usize) -> 
 
 fn is_only_possible_in_row(grid: [[bool; 9]; 9], row: usize) -> bool {
     let mut first = true;
-    for col in 0..9 {
+    for col in GRID_SIZE_RANGE {
         if grid[row][col] {
             if !first {
                 return false;
@@ -38,7 +40,7 @@ fn is_only_possible_in_row(grid: [[bool; 9]; 9], row: usize) -> bool {
 
 fn is_only_possible_in_column(grid: [[bool; 9]; 9], column: usize) -> bool {
     let mut first = true;
-    for row in 0..9 {
+    for row in GRID_SIZE_RANGE {
         if grid[row][column] {
             if !first {
                 return false;
@@ -50,10 +52,10 @@ fn is_only_possible_in_column(grid: [[bool; 9]; 9], column: usize) -> bool {
 }
 
 fn is_only_possible_in_square(grid: [[bool; 9]; 9], row: usize, column: usize) -> bool {
-    let (r_start, r_end, c_start, c_end) = get_square_ranges(row, column);
+    let (r_range, c_range) = get_square_ranges(row, column);
     let mut first = true;
-    for r in r_start..r_end {
-        for c in c_start..c_end {
+    for r in r_range {
+        for c in c_range.clone() {
             if grid[r][c] {
                 if !first {
                     return false;

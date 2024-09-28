@@ -4,6 +4,7 @@ use crate::possible::{
 };
 use crate::solved_detection::is_solved;
 use crate::unsolvable_detection::{get_possible_count, is_unsolvable};
+use crate::{BLANK_CELL_VALUE, CELL_VALUE_RANGE, GRID_SIZE_RANGE};
 
 pub fn solve_grid(mut grid: [[Cell; 9]; 9]) -> Option<[[Cell; 9]; 9]> {
     let mut last_unsolved = 0;
@@ -13,10 +14,10 @@ pub fn solve_grid(mut grid: [[Cell; 9]; 9]) -> Option<[[Cell; 9]; 9]> {
         grid = calculate_possible_for_cells(grid);
         // If there are any cells with no possible value OR if two cells is the same group share
         // one possible value, return None.
-        for r in 0..9 {
-            for c in 0..9 {
-                if grid[r][c].provided == 0 {
-                    for n in 1..10 {
+        for r in GRID_SIZE_RANGE {
+            for c in GRID_SIZE_RANGE {
+                if grid[r][c].provided == BLANK_CELL_VALUE {
+                    for n in CELL_VALUE_RANGE {
                         let possible_placements = get_possible_placements_for_value(grid, n);
                         if is_only_possible_placement(possible_placements, r, c) {
                             grid[r][c].provided = n;
@@ -39,7 +40,7 @@ pub fn solve_grid(mut grid: [[Cell; 9]; 9]) -> Option<[[Cell; 9]; 9]> {
 pub fn speculative_solve(grid: [[Cell; 9]; 9]) -> Option<[[Cell; 9]; 9]> {
     let (unsolved_row, unsolved_column) = get_next_unsolved(grid);
 
-    for value in 1..10 {
+    for value in CELL_VALUE_RANGE {
         // If value isn't possible for this cell, it isn't a viable future.
         if grid[unsolved_row][unsolved_column].possible[value - 1] == false {
             continue;
@@ -57,9 +58,9 @@ pub fn speculative_solve(grid: [[Cell; 9]; 9]) -> Option<[[Cell; 9]; 9]> {
 
 pub fn get_unsolved_count(grid: [[Cell; 9]; 9]) -> u8 {
     let mut count = 0;
-    for r in 0..9 {
-        for c in 0..9 {
-            if grid[r][c].provided == 0 {
+    for r in GRID_SIZE_RANGE {
+        for c in GRID_SIZE_RANGE {
+            if grid[r][c].provided == BLANK_CELL_VALUE {
                 count = count + 1;
             }
         }
@@ -72,9 +73,9 @@ fn get_next_unsolved(grid: [[Cell; 9]; 9]) -> (usize, usize) {
     let mut next_row = 0;
     let mut next_col = 0;
     let mut possibles = 10;
-    for row in 0..9 {
-        for column in 0..9 {
-            if grid[row][column].provided == 0 {
+    for row in GRID_SIZE_RANGE {
+        for column in GRID_SIZE_RANGE {
+            if grid[row][column].provided == BLANK_CELL_VALUE {
                 let (possible_value_count_for_cell, _) = get_possible_count(grid, row, column);
                 if possibles > possible_value_count_for_cell {
                     next_col = column;

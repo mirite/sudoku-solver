@@ -2,6 +2,7 @@
 mod tests {
     use crate::input::{print_grid, read_grid, Cell};
     use crate::solving::solve_grid;
+    use crate::GRID_SIZE_RANGE;
     use std::fs::read_to_string;
 
     #[test]
@@ -54,8 +55,8 @@ mod tests {
     fn compare_grids(result: [[Cell; 9]; 9], actual_path: &str) {
         let solved_data = read_to_string(actual_path).unwrap();
         let solved_grid = read_grid(solved_data).unwrap();
-        for r in 0..9 {
-            for c in 0..9 {
+        for r in GRID_SIZE_RANGE {
+            for c in GRID_SIZE_RANGE {
                 assert_eq!(
                     result[r][c].provided, solved_grid[r][c].provided,
                     "Expected the value at ({},{}) to be {}. Got {}",

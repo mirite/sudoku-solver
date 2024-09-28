@@ -5,12 +5,13 @@ mod tests {
         calculate_possible_for_cells, get_possible_placements_for_value, is_only_possible_placement,
     };
 
+    use crate::{BLANK_CELL_VALUE, CELL_VALUE_RANGE, GRID_SIZE_RANGE};
     use std::fs::read_to_string;
 
     #[test]
     fn can_calculate_possible_values() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
-            provided: 0,
+            provided: BLANK_CELL_VALUE,
             possible: [true; 9],
         }; 9]; 9];
 
@@ -34,7 +35,7 @@ mod tests {
         test_grid = calculate_possible_for_cells(test_grid);
         for r in 0..3 {
             for c in 0..3 {
-                for n in 1..10 {
+                for n in CELL_VALUE_RANGE {
                     let expected = if r == 0 && c == 2 && n == 3 {
                         true
                     } else if r == 2 && c == 1 && n == 8 {
@@ -64,8 +65,8 @@ mod tests {
         let mut grid = read_grid(data).unwrap();
         grid = calculate_possible_for_cells(grid);
         let possibles = get_possible_placements_for_value(grid, 7);
-        for r in 0..9 {
-            for c in 0..9 {
+        for r in GRID_SIZE_RANGE {
+            for c in GRID_SIZE_RANGE {
                 let expected = if (r == 2 && c == 2)
                     || (r == 5 && c == 3)
                     || (r == 7 && c == 0)
@@ -92,9 +93,9 @@ mod tests {
         let data = read_to_string("test_grids/allEmpty.txt").unwrap();
         let mut grid = read_grid(data).unwrap();
         grid = calculate_possible_for_cells(grid);
-        for r in 0..9 {
-            for c in 0..9 {
-                for n in 1..10 {
+        for r in GRID_SIZE_RANGE {
+            for c in GRID_SIZE_RANGE {
+                for n in CELL_VALUE_RANGE {
                     assert_eq!(grid[r][c].possible[n - 1], true);
                 }
             }
@@ -107,8 +108,8 @@ mod tests {
         let mut grid = read_grid(data).unwrap();
         grid = calculate_possible_for_cells(grid);
         let possibles = get_possible_placements_for_value(grid, 7);
-        for r in 0..9 {
-            for c in 0..9 {
+        for r in GRID_SIZE_RANGE {
+            for c in GRID_SIZE_RANGE {
                 let expected = if (r == 2 && c == 2) || (r == 5 && c == 3) || (r == 7 && c == 0) {
                     true
                 } else {

@@ -12,6 +12,10 @@ use crate::input::read_grid;
 use crate::solving::solve_grid;
 use wasm_bindgen::prelude::*;
 
+const GRID_SIZE_RANGE: std::ops::Range<usize> = 0..9;
+const CELL_VALUE_RANGE: std::ops::Range<usize> = 1..10;
+const BLANK_CELL_VALUE: usize = 0;
+
 #[wasm_bindgen]
 pub fn solve_puzzle(text: String) -> JsValue {
     let grid = read_grid(text);

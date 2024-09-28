@@ -2,6 +2,7 @@
 mod tests {
     use crate::input::Cell;
     use crate::solved_detection::is_solved;
+    use crate::BLANK_CELL_VALUE;
 
     #[test]
     fn can_check_solved() {
@@ -17,7 +18,7 @@ mod tests {
             provided: 1,
             possible: [true; 9],
         }; 9]; 9];
-        test_grid[8][8].provided = 0;
+        test_grid[8][8].provided = BLANK_CELL_VALUE;
         assert_eq!(is_solved(test_grid), false);
     }
 }

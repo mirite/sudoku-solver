@@ -2,12 +2,13 @@
 mod tests {
     use crate::input::{read_grid, Cell, InputError};
     use crate::validity::{is_valid, is_valid_grid};
+    use crate::BLANK_CELL_VALUE;
     use std::fs::read_to_string;
 
     #[test]
     fn is_invalid_for_row() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
-            provided: 0,
+            provided: BLANK_CELL_VALUE,
             possible: [true; 9],
         }; 9]; 9];
         test_grid[0][0].provided = 1;
@@ -17,7 +18,7 @@ mod tests {
     #[test]
     fn is_valid_for_row() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
-            provided: 0,
+            provided: BLANK_CELL_VALUE,
             possible: [true; 9],
         }; 9]; 9];
         test_grid[0][0].provided = 1;
@@ -27,7 +28,7 @@ mod tests {
     #[test]
     fn is_valid_same_cell() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
-            provided: 0,
+            provided: BLANK_CELL_VALUE,
             possible: [true; 9],
         }; 9]; 9];
         test_grid[0][0].provided = 1;
@@ -37,7 +38,7 @@ mod tests {
     #[test]
     fn is_invalid_for_column() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
-            provided: 0,
+            provided: BLANK_CELL_VALUE,
             possible: [true; 9],
         }; 9]; 9];
         test_grid[0][0].provided = 1;
@@ -47,7 +48,7 @@ mod tests {
     #[test]
     fn is_valid_for_column() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
-            provided: 0,
+            provided: BLANK_CELL_VALUE,
             possible: [true; 9],
         }; 9]; 9];
         test_grid[0][0].provided = 1;
@@ -57,7 +58,7 @@ mod tests {
     #[test]
     fn is_invalid_for_square() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
-            provided: 0,
+            provided: BLANK_CELL_VALUE,
             possible: [true; 9],
         }; 9]; 9];
         test_grid[0][0].provided = 1;
@@ -67,7 +68,7 @@ mod tests {
     #[test]
     fn is_invalid_for_square_2() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
-            provided: 0,
+            provided: BLANK_CELL_VALUE,
             possible: [true; 9],
         }; 9]; 9];
         test_grid[3][0].provided = 1;
@@ -77,7 +78,7 @@ mod tests {
     #[test]
     fn is_invalid_for_square_3() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
-            provided: 0,
+            provided: BLANK_CELL_VALUE,
             possible: [true; 9],
         }; 9]; 9];
         test_grid[7][7].provided = 1;
@@ -87,7 +88,7 @@ mod tests {
     #[test]
     fn is_valid_for_square() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
-            provided: 0,
+            provided: BLANK_CELL_VALUE,
             possible: [true; 9],
         }; 9]; 9];
         test_grid[0][0].provided = 1;

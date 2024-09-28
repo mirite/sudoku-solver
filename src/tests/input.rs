@@ -1,16 +1,17 @@
 #[cfg(test)]
 mod tests {
     use crate::input::{read_grid, InputError};
+    use crate::{BLANK_CELL_VALUE, GRID_SIZE_RANGE};
     use std::fs::read_to_string;
 
     #[test]
     fn read_empty_grid() {
         let data = read_to_string("test_grids/allEmpty.txt").unwrap();
         let result = read_grid(data).unwrap();
-        for r in 0..9 {
-            for c in 0..9 {
-                assert_eq!(result[r][c].provided, 0);
-                for p in 0..9 {
+        for r in GRID_SIZE_RANGE {
+            for c in GRID_SIZE_RANGE {
+                assert_eq!(result[r][c].provided, BLANK_CELL_VALUE);
+                for p in GRID_SIZE_RANGE {
                     assert_eq!(result[r][c].possible[p], true);
                 }
             }
@@ -21,10 +22,10 @@ mod tests {
     fn read_full_grid() {
         let data = read_to_string("test_grids/fullGrid.txt").unwrap();
         let result = read_grid(data).unwrap();
-        for r in 0..9 {
-            for c in 0..9 {
-                assert_ne!(result[r][c].provided, 0);
-                for p in 0..9 {
+        for r in GRID_SIZE_RANGE {
+            for c in GRID_SIZE_RANGE {
+                assert_ne!(result[r][c].provided, BLANK_CELL_VALUE);
+                for p in GRID_SIZE_RANGE {
                     assert_eq!(result[r][c].possible[p], false);
                 }
             }
