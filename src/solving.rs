@@ -13,11 +13,11 @@ pub fn solve_grid(
     let mut unsolved = get_unsolved_count(grid);
     while unsolved != last_unsolved && unsolved != 0 {
         last_unsolved = unsolved;
-        grid = calculate_possible_for_cells(grid);
         // If there are any cells with no possible value OR if two cells is the same group share
         // one possible value, return None.
         for r in GRID_SIZE_RANGE {
             for c in GRID_SIZE_RANGE {
+                grid = calculate_possible_for_cells(grid); //
                 if grid[r][c].provided == BLANK_CELL_VALUE {
                     for n in CELL_VALUE_RANGE {
                         let possible_placements = get_possible_placements_for_value(grid, n);

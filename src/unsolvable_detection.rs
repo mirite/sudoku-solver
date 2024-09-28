@@ -23,7 +23,7 @@ pub fn is_unsolvable(grid: [[Cell; GRID_SIZE]; GRID_SIZE]) -> bool {
                     }
                 }
 
-                //Check for other cells in the same coumn
+                //Check for other cells in the same column
                 for row in GRID_SIZE_RANGE {
                     if is_conflicting_cell(grid, r, c, row, c) {
                         return true;

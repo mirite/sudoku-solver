@@ -1,8 +1,8 @@
 #[cfg(test)]
 mod tests {
-    use crate::input::{print_grid, read_grid, Cell};
+    use crate::input::{read_grid, Cell};
     use crate::solving::solve_grid;
-    use crate::GRID_SIZE_RANGE;
+    use crate::{GRID_SIZE, GRID_SIZE_RANGE};
     use std::fs::read_to_string;
 
     #[test]
@@ -28,7 +28,6 @@ mod tests {
         let data = read_to_string("test_grids/extremeToSolve.txt").unwrap();
         let grid = read_grid(data).unwrap();
         let result = solve_grid(grid);
-        print_grid(result.unwrap());
         assert_eq!(result.is_some(), true);
         compare_grids(result.unwrap(), "test_grids/extremeToSolveSolved.txt");
     }
@@ -39,7 +38,6 @@ mod tests {
         let grid = read_grid(data).unwrap();
         let result = solve_grid(grid);
         assert_eq!(result.is_some(), true);
-        print_grid(result.unwrap());
         compare_grids(result.unwrap(), "test_grids/extremeToSolve2Solved.txt");
     }
 
@@ -52,7 +50,7 @@ mod tests {
         assert_eq!(result.is_none(), false);
     }
 
-    fn compare_grids(result: [[Cell; 9]; 9], actual_path: &str) {
+    fn compare_grids(result: [[Cell; GRID_SIZE]; GRID_SIZE], actual_path: &str) {
         let solved_data = read_to_string(actual_path).unwrap();
         let solved_grid = read_grid(solved_data).unwrap();
         for r in GRID_SIZE_RANGE {
@@ -60,7 +58,7 @@ mod tests {
                 assert_eq!(
                     result[r][c].provided, solved_grid[r][c].provided,
                     "Expected the value at ({},{}) to be {}. Got {}",
-                    r, c, result[r][c].provided, solved_grid[r][c].provided
+                    r, c, solved_grid[r][c].provided, result[r][c].provided
                 );
             }
         }
