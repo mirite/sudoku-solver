@@ -16,7 +16,7 @@ pub fn read_grid(content: String) -> Result<[[Cell; GRID_SIZE]; GRID_SIZE], Inpu
     let line_count = lines.len();
 
     let mut result_grid: [[Cell; GRID_SIZE]; GRID_SIZE] = [[Cell {
-        provided: BLANK_CELL_VALUE,
+        value: BLANK_CELL_VALUE,
         possible: [true; GRID_SIZE],
     }; GRID_SIZE]; GRID_SIZE];
 
@@ -38,7 +38,7 @@ pub fn read_grid(content: String) -> Result<[[Cell; GRID_SIZE]; GRID_SIZE], Inpu
             };
             match cell_value {
                 Ok(v) => {
-                    result_grid[r][c].provided = v;
+                    result_grid[r][c].value = v;
                     for p in GRID_SIZE_RANGE {
                         result_grid[r][c].possible[p] = match v {
                             BLANK_CELL_VALUE => true,
@@ -59,7 +59,7 @@ pub fn read_grid(content: String) -> Result<[[Cell; GRID_SIZE]; GRID_SIZE], Inpu
 
 #[derive(Clone, Copy, Debug)]
 pub struct Cell {
-    pub provided: usize,
+    pub value: usize,
     pub possible: [bool; GRID_SIZE],
 }
 
@@ -71,7 +71,7 @@ pub fn grid_to_string(grid: [[Cell; GRID_SIZE]; GRID_SIZE]) -> String {
     let mut result: String = String::from("");
     for r in GRID_SIZE_RANGE {
         for c in GRID_SIZE_RANGE {
-            result.push_str(&format!("{}", grid[r][c].provided));
+            result.push_str(&format!("{}", grid[r][c].value));
             if c % 3 == 2 && c != 8 {
                 result.push_str("|");
             }

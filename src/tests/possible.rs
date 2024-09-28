@@ -11,26 +11,26 @@ mod tests {
     #[test]
     fn can_calculate_possible_values() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
-            provided: BLANK_CELL_VALUE,
+            value: BLANK_CELL_VALUE,
             possible: [true; 9],
         }; 9]; 9];
 
-        test_grid[0][0].provided = 1;
-        test_grid[0][1].provided = 2;
+        test_grid[0][0].value = 1;
+        test_grid[0][1].value = 2;
         // Checking for row
-        test_grid[1][0].provided = 4;
-        test_grid[1][1].provided = 5;
-        test_grid[1][2].provided = 6;
-        test_grid[2][0].provided = 7;
+        test_grid[1][0].value = 4;
+        test_grid[1][1].value = 5;
+        test_grid[1][2].value = 6;
+        test_grid[2][0].value = 7;
         // Checking for column
         //Checking for cell
 
-        test_grid[0][4].provided = 8;
-        test_grid[4][2].provided = 8;
-        test_grid[0][5].provided = 9;
-        test_grid[2][5].provided = 3;
-        test_grid[3][1].provided = 3;
-        test_grid[4][1].provided = 9;
+        test_grid[0][4].value = 8;
+        test_grid[4][2].value = 8;
+        test_grid[0][5].value = 9;
+        test_grid[2][5].value = 3;
+        test_grid[3][1].value = 3;
+        test_grid[4][1].value = 9;
 
         test_grid = calculate_possible_for_cells(test_grid);
         for r in 0..3 {

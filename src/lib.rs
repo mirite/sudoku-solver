@@ -7,7 +7,6 @@ mod tests;
 mod unsolvable_detection;
 mod validity;
 
-use crate::input::grid_to_string;
 use crate::input::read_grid;
 use crate::solving::solve_grid;
 use wasm_bindgen::prelude::*;
@@ -21,19 +20,20 @@ const BLANK_CELL_VALUE: usize = 0;
 pub fn solve_puzzle(text: String) -> JsValue {
     let grid = read_grid(text);
     let result = match grid {
-        Ok(g) => solve_grid(g),
+        Ok(grid_from_input) => solve_grid(grid_from_input),
         Err(_e) => return JsValue::from_str("The provided grid was invalid"),
     };
 
     match result {
-        Some(j) => {
+        Some(solved_grid) => {
             let mut result: String = String::from("");
-            for r in GRID_SIZE_RANGE {
-                for c in GRID_SIZE_RANGE {
-                    result.push_str(&format!("{}",j[r][c].provided))
+            for row in GRID_SIZE_RANGE {
+                for column in GRID_SIZE_RANGE {
+                    result.push_str(&format!("{}", solved_grid[row][column].value))
                 }
             }
-            JsValue::from_str(&result) },
+            JsValue::from_str(&result)
+        }
         None => JsValue::from_str("No solution found"),
     }
 }

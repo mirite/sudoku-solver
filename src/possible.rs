@@ -10,7 +10,7 @@ pub fn calculate_possible_for_cells(
         for c in GRID_SIZE_RANGE {
             for n in CELL_VALUE_RANGE {
                 grid[r][c].possible[n - 1] =
-                    grid[r][c].provided == BLANK_CELL_VALUE && is_valid(grid, r, c, n);
+                    grid[r][c].value == BLANK_CELL_VALUE && is_valid(grid, r, c, n);
             }
         }
     }

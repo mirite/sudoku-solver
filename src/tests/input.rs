@@ -10,7 +10,7 @@ mod tests {
         let result = read_grid(data).unwrap();
         for r in GRID_SIZE_RANGE {
             for c in GRID_SIZE_RANGE {
-                assert_eq!(result[r][c].provided, BLANK_CELL_VALUE);
+                assert_eq!(result[r][c].value, BLANK_CELL_VALUE);
                 for p in GRID_SIZE_RANGE {
                     assert_eq!(result[r][c].possible[p], true);
                 }
@@ -24,7 +24,7 @@ mod tests {
         let result = read_grid(data).unwrap();
         for r in GRID_SIZE_RANGE {
             for c in GRID_SIZE_RANGE {
-                assert_ne!(result[r][c].provided, BLANK_CELL_VALUE);
+                assert_ne!(result[r][c].value, BLANK_CELL_VALUE);
                 for p in GRID_SIZE_RANGE {
                     assert_eq!(result[r][c].possible[p], false);
                 }

@@ -18,11 +18,11 @@ pub fn solve_grid(
         for r in GRID_SIZE_RANGE {
             for c in GRID_SIZE_RANGE {
                 grid = calculate_possible_for_cells(grid); //
-                if grid[r][c].provided == BLANK_CELL_VALUE {
+                if grid[r][c].value == BLANK_CELL_VALUE {
                     for n in CELL_VALUE_RANGE {
                         let possible_placements = get_possible_placements_for_value(grid, n);
                         if is_only_possible_placement(possible_placements, r, c) {
-                            grid[r][c].provided = n;
+                            grid[r][c].value = n;
                         }
                     }
                 }
@@ -50,7 +50,7 @@ pub fn speculative_solve(
             continue;
         }
         let mut possible_future = grid.clone();
-        possible_future[unsolved_row][unsolved_column].provided = value;
+        possible_future[unsolved_row][unsolved_column].value = value;
 
         let result = solve_grid(possible_future);
         if result.is_some() {
@@ -64,7 +64,7 @@ pub fn get_unsolved_count(grid: [[Cell; GRID_SIZE]; GRID_SIZE]) -> u8 {
     let mut count = 0;
     for r in GRID_SIZE_RANGE {
         for c in GRID_SIZE_RANGE {
-            if grid[r][c].provided == BLANK_CELL_VALUE {
+            if grid[r][c].value == BLANK_CELL_VALUE {
                 count = count + 1;
             }
         }
@@ -79,7 +79,7 @@ fn get_next_unsolved(grid: [[Cell; GRID_SIZE]; GRID_SIZE]) -> (usize, usize) {
     let mut possibles = GRID_SIZE + 1; // Start with one more than the actual maximum number of possibles.
     for row in GRID_SIZE_RANGE {
         for column in GRID_SIZE_RANGE {
-            if grid[row][column].provided == BLANK_CELL_VALUE {
+            if grid[row][column].value == BLANK_CELL_VALUE {
                 let (possible_value_count_for_cell, _) = get_possible_count(grid, row, column);
                 if possibles > possible_value_count_for_cell {
                     next_col = column;

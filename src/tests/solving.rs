@@ -56,9 +56,9 @@ mod tests {
         for r in GRID_SIZE_RANGE {
             for c in GRID_SIZE_RANGE {
                 assert_eq!(
-                    result[r][c].provided, solved_grid[r][c].provided,
+                    result[r][c].value, solved_grid[r][c].value,
                     "Expected the value at ({},{}) to be {}. Got {}",
-                    r, c, solved_grid[r][c].provided, result[r][c].provided
+                    r, c, solved_grid[r][c].value, result[r][c].value
                 );
             }
         }

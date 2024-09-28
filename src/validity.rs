@@ -6,8 +6,7 @@ use std::usize;
 pub fn is_valid_grid(grid: [[Cell; GRID_SIZE]; GRID_SIZE]) -> bool {
     for r in GRID_SIZE_RANGE {
         for c in GRID_SIZE_RANGE {
-            if grid[r][c].provided != BLANK_CELL_VALUE && !is_valid(grid, r, c, grid[r][c].provided)
-            {
+            if grid[r][c].value != BLANK_CELL_VALUE && !is_valid(grid, r, c, grid[r][c].value) {
                 return false;
             }
         }
@@ -32,7 +31,7 @@ pub fn is_valid_for_row(
     value: usize,
 ) -> bool {
     for col in GRID_SIZE_RANGE {
-        if grid[row][col].provided == value && col != column {
+        if grid[row][col].value == value && col != column {
             return false;
         }
     }
@@ -46,7 +45,7 @@ pub fn is_valid_for_column(
     value: usize,
 ) -> bool {
     for r in GRID_SIZE_RANGE {
-        if grid[r][column].provided == value && r != row {
+        if grid[r][column].value == value && r != row {
             return false;
         }
     }
@@ -62,7 +61,7 @@ pub fn is_valid_for_square(
     let (r_range, c_range) = get_square_ranges(row, column);
     for r in r_range {
         for c in c_range.clone() {
-            if grid[r][c].provided == value && r != row && c != column {
+            if grid[r][c].value == value && r != row && c != column {
                 return false;
             }
         }
