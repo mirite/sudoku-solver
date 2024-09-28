@@ -4,9 +4,11 @@ use crate::possible::{
 };
 use crate::solved_detection::is_solved;
 use crate::unsolvable_detection::{get_possible_count, is_unsolvable};
-use crate::{BLANK_CELL_VALUE, CELL_VALUE_RANGE, GRID_SIZE_RANGE};
+use crate::{BLANK_CELL_VALUE, CELL_VALUE_RANGE, GRID_SIZE, GRID_SIZE_RANGE};
 
-pub fn solve_grid(mut grid: [[Cell; 9]; 9]) -> Option<[[Cell; 9]; 9]> {
+pub fn solve_grid(
+    mut grid: [[Cell; GRID_SIZE]; GRID_SIZE],
+) -> Option<[[Cell; GRID_SIZE]; GRID_SIZE]> {
     let mut last_unsolved = 0;
     let mut unsolved = get_unsolved_count(grid);
     while unsolved != last_unsolved && unsolved != 0 {
@@ -37,7 +39,9 @@ pub fn solve_grid(mut grid: [[Cell; 9]; 9]) -> Option<[[Cell; 9]; 9]> {
     }
 }
 
-pub fn speculative_solve(grid: [[Cell; 9]; 9]) -> Option<[[Cell; 9]; 9]> {
+pub fn speculative_solve(
+    grid: [[Cell; GRID_SIZE]; GRID_SIZE],
+) -> Option<[[Cell; GRID_SIZE]; GRID_SIZE]> {
     let (unsolved_row, unsolved_column) = get_next_unsolved(grid);
 
     for value in CELL_VALUE_RANGE {
@@ -56,7 +60,7 @@ pub fn speculative_solve(grid: [[Cell; 9]; 9]) -> Option<[[Cell; 9]; 9]> {
     None
 }
 
-pub fn get_unsolved_count(grid: [[Cell; 9]; 9]) -> u8 {
+pub fn get_unsolved_count(grid: [[Cell; GRID_SIZE]; GRID_SIZE]) -> u8 {
     let mut count = 0;
     for r in GRID_SIZE_RANGE {
         for c in GRID_SIZE_RANGE {
@@ -69,10 +73,10 @@ pub fn get_unsolved_count(grid: [[Cell; 9]; 9]) -> u8 {
 }
 
 /// Gets the address of the first cell with the lowest number of possible values that doesn't have a known value.
-fn get_next_unsolved(grid: [[Cell; 9]; 9]) -> (usize, usize) {
+fn get_next_unsolved(grid: [[Cell; GRID_SIZE]; GRID_SIZE]) -> (usize, usize) {
     let mut next_row = 0;
     let mut next_col = 0;
-    let mut possibles = 10;
+    let mut possibles = GRID_SIZE + 1; // Start with one more than the actual maximum number of possibles.
     for row in GRID_SIZE_RANGE {
         for column in GRID_SIZE_RANGE {
             if grid[row][column].provided == BLANK_CELL_VALUE {

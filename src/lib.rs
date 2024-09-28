@@ -12,8 +12,9 @@ use crate::input::read_grid;
 use crate::solving::solve_grid;
 use wasm_bindgen::prelude::*;
 
-const GRID_SIZE_RANGE: std::ops::Range<usize> = 0..9;
-const CELL_VALUE_RANGE: std::ops::Range<usize> = 1..10;
+const GRID_SIZE: usize = 9;
+const GRID_SIZE_RANGE: std::ops::Range<usize> = 0..GRID_SIZE;
+const CELL_VALUE_RANGE: std::ops::Range<usize> = 1..GRID_SIZE + 1;
 const BLANK_CELL_VALUE: usize = 0;
 
 #[wasm_bindgen]

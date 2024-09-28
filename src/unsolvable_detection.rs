@@ -1,9 +1,9 @@
 use crate::input::Cell;
 use crate::math_helpers::get_square_ranges;
-use crate::{BLANK_CELL_VALUE, CELL_VALUE_RANGE, GRID_SIZE_RANGE};
+use crate::{BLANK_CELL_VALUE, CELL_VALUE_RANGE, GRID_SIZE, GRID_SIZE_RANGE};
 
 /// Determines if a grid is in an unsolvable state.
-pub fn is_unsolvable(grid: [[Cell; 9]; 9]) -> bool {
+pub fn is_unsolvable(grid: [[Cell; GRID_SIZE]; GRID_SIZE]) -> bool {
     for r in GRID_SIZE_RANGE {
         for c in GRID_SIZE_RANGE {
             if grid[r][c].provided != BLANK_CELL_VALUE {
@@ -48,7 +48,7 @@ pub fn is_unsolvable(grid: [[Cell; 9]; 9]) -> bool {
 
 /// Determines if two cells both require their value to be the same number.
 fn is_conflicting_cell(
-    grid: [[Cell; 9]; 9],
+    grid: [[Cell; GRID_SIZE]; GRID_SIZE],
     current_row: usize,
     current_column: usize,
     checking_against_row: usize,
@@ -66,7 +66,11 @@ fn is_conflicting_cell(
 
 /// Gets the number of possible values for the cell. If that number is equal to one,
 /// the second item in the tuple will be that only possible value.
-pub fn get_possible_count(grid: [[Cell; 9]; 9], row: usize, col: usize) -> (usize, usize) {
+pub fn get_possible_count(
+    grid: [[Cell; GRID_SIZE]; GRID_SIZE],
+    row: usize,
+    col: usize,
+) -> (usize, usize) {
     let mut possible_values: usize = 0;
     let mut last_possible_value: usize = 0;
     for n in CELL_VALUE_RANGE {
