@@ -26,7 +26,14 @@ pub fn solve_puzzle(text: String) -> JsValue {
     };
 
     match result {
-        Some(j) => JsValue::from_str(&grid_to_string(j)),
+        Some(j) => {
+            let mut result: String = String::from("");
+            for r in GRID_SIZE_RANGE {
+                for c in GRID_SIZE_RANGE {
+                    result.push_str(&format!("{}",j[r][c].provided))
+                }
+            }
+            JsValue::from_str(&result) },
         None => JsValue::from_str("No solution found"),
     }
 }
