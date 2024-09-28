@@ -74,7 +74,7 @@ pub fn get_possible_count(
     let mut possible_values: usize = 0;
     let mut last_possible_value: usize = 0;
     for n in CELL_VALUE_RANGE {
-        if grid[row][col].possible[n - 1] {
+        if grid[row][col].candidates[n - 1] {
             possible_values = possible_values + 1;
             last_possible_value = n;
         }

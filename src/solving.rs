@@ -46,7 +46,7 @@ pub fn speculative_solve(
 
     for value in CELL_VALUE_RANGE {
         // If value isn't possible for this cell, it isn't a viable future.
-        if grid[unsolved_row][unsolved_column].possible[value - 1] == false {
+        if grid[unsolved_row][unsolved_column].candidates[value - 1] == false {
             continue;
         }
         let mut possible_future = grid.clone();

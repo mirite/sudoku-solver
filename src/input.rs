@@ -17,7 +17,7 @@ pub fn read_grid(content: String) -> Result<[[Cell; GRID_SIZE]; GRID_SIZE], Inpu
 
     let mut result_grid: [[Cell; GRID_SIZE]; GRID_SIZE] = [[Cell {
         value: BLANK_CELL_VALUE,
-        possible: [true; GRID_SIZE],
+        candidates: [true; GRID_SIZE],
     }; GRID_SIZE]; GRID_SIZE];
 
     if line_count < GRID_SIZE {
@@ -40,7 +40,7 @@ pub fn read_grid(content: String) -> Result<[[Cell; GRID_SIZE]; GRID_SIZE], Inpu
                 Ok(v) => {
                     result_grid[r][c].value = v;
                     for p in GRID_SIZE_RANGE {
-                        result_grid[r][c].possible[p] = match v {
+                        result_grid[r][c].candidates[p] = match v {
                             BLANK_CELL_VALUE => true,
                             _ => false,
                         }
@@ -60,7 +60,7 @@ pub fn read_grid(content: String) -> Result<[[Cell; GRID_SIZE]; GRID_SIZE], Inpu
 #[derive(Clone, Copy, Debug)]
 pub struct Cell {
     pub value: usize,
-    pub possible: [bool; GRID_SIZE],
+    pub candidates: [bool; GRID_SIZE],
 }
 
 pub fn print_grid(grid: [[Cell; GRID_SIZE]; GRID_SIZE]) {

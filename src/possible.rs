@@ -9,7 +9,7 @@ pub fn calculate_possible_for_cells(
     for r in GRID_SIZE_RANGE {
         for c in GRID_SIZE_RANGE {
             for n in CELL_VALUE_RANGE {
-                grid[r][c].possible[n - 1] =
+                grid[r][c].candidates[n - 1] =
                     grid[r][c].value == BLANK_CELL_VALUE && is_valid(grid, r, c, n);
             }
         }
@@ -24,7 +24,7 @@ pub fn get_possible_placements_for_value(
     let mut result = [[false; GRID_SIZE]; GRID_SIZE];
     for r in GRID_SIZE_RANGE {
         for c in GRID_SIZE_RANGE {
-            result[r][c] = grid[r][c].possible[value - 1];
+            result[r][c] = grid[r][c].candidates[value - 1];
         }
     }
     result

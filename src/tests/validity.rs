@@ -9,7 +9,7 @@ mod tests {
     fn is_invalid_for_row() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
             value: BLANK_CELL_VALUE,
-            possible: [true; 9],
+            candidates: [true; 9],
         }; 9]; 9];
         test_grid[0][0].value = 1;
         assert_eq!(is_valid(test_grid, 0, 3, 1), false)
@@ -19,7 +19,7 @@ mod tests {
     fn is_valid_for_row() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
             value: BLANK_CELL_VALUE,
-            possible: [true; 9],
+            candidates: [true; 9],
         }; 9]; 9];
         test_grid[0][0].value = 1;
         assert_eq!(is_valid(test_grid, 0, 3, 2), true)
@@ -29,7 +29,7 @@ mod tests {
     fn is_valid_same_cell() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
             value: BLANK_CELL_VALUE,
-            possible: [true; 9],
+            candidates: [true; 9],
         }; 9]; 9];
         test_grid[0][0].value = 1;
         assert_eq!(is_valid(test_grid, 0, 0, 1), true)
@@ -39,7 +39,7 @@ mod tests {
     fn is_invalid_for_column() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
             value: BLANK_CELL_VALUE,
-            possible: [true; 9],
+            candidates: [true; 9],
         }; 9]; 9];
         test_grid[0][0].value = 1;
         assert_eq!(is_valid(test_grid, 3, 0, 1), false)
@@ -49,7 +49,7 @@ mod tests {
     fn is_valid_for_column() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
             value: BLANK_CELL_VALUE,
-            possible: [true; 9],
+            candidates: [true; 9],
         }; 9]; 9];
         test_grid[0][0].value = 1;
         assert_eq!(is_valid(test_grid, 3, 0, 2), true)
@@ -59,7 +59,7 @@ mod tests {
     fn is_invalid_for_square() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
             value: BLANK_CELL_VALUE,
-            possible: [true; 9],
+            candidates: [true; 9],
         }; 9]; 9];
         test_grid[0][0].value = 1;
         assert_eq!(is_valid(test_grid, 2, 1, 1), false)
@@ -69,7 +69,7 @@ mod tests {
     fn is_invalid_for_square_2() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
             value: BLANK_CELL_VALUE,
-            possible: [true; 9],
+            candidates: [true; 9],
         }; 9]; 9];
         test_grid[3][0].value = 1;
         assert_eq!(is_valid(test_grid, 4, 1, 1), false)
@@ -79,7 +79,7 @@ mod tests {
     fn is_invalid_for_square_3() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
             value: BLANK_CELL_VALUE,
-            possible: [true; 9],
+            candidates: [true; 9],
         }; 9]; 9];
         test_grid[7][7].value = 1;
         assert_eq!(is_valid(test_grid, 8, 8, 1), false)
@@ -89,7 +89,7 @@ mod tests {
     fn is_valid_for_square() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
             value: BLANK_CELL_VALUE,
-            possible: [true; 9],
+            candidates: [true; 9],
         }; 9]; 9];
         test_grid[0][0].value = 1;
         assert_eq!(is_valid(test_grid, 2, 1, 2), true)

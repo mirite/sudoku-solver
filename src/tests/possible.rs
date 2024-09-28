@@ -12,7 +12,7 @@ mod tests {
     fn can_calculate_possible_values() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
             value: BLANK_CELL_VALUE,
-            possible: [true; 9],
+            candidates: [true; 9],
         }; 9]; 9];
 
         test_grid[0][0].value = 1;
@@ -46,7 +46,7 @@ mod tests {
                         false
                     };
                     assert_eq!(
-                        test_grid[r][c].possible[n - 1],
+                        test_grid[r][c].candidates[n - 1],
                         expected,
                         "Expected for {} to be {} at ({},{})",
                         n,
@@ -96,7 +96,7 @@ mod tests {
         for r in GRID_SIZE_RANGE {
             for c in GRID_SIZE_RANGE {
                 for n in CELL_VALUE_RANGE {
-                    assert_eq!(grid[r][c].possible[n - 1], true);
+                    assert_eq!(grid[r][c].candidates[n - 1], true);
                 }
             }
         }

@@ -12,7 +12,7 @@ mod tests {
             for c in GRID_SIZE_RANGE {
                 assert_eq!(result[r][c].value, BLANK_CELL_VALUE);
                 for p in GRID_SIZE_RANGE {
-                    assert_eq!(result[r][c].possible[p], true);
+                    assert_eq!(result[r][c].candidates[p], true);
                 }
             }
         }
@@ -26,7 +26,7 @@ mod tests {
             for c in GRID_SIZE_RANGE {
                 assert_ne!(result[r][c].value, BLANK_CELL_VALUE);
                 for p in GRID_SIZE_RANGE {
-                    assert_eq!(result[r][c].possible[p], false);
+                    assert_eq!(result[r][c].candidates[p], false);
                 }
             }
         }

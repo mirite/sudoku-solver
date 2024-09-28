@@ -8,7 +8,7 @@ mod tests {
     fn can_check_solved() {
         let test_grid: [[Cell; 9]; 9] = [[Cell {
             value: 1,
-            possible: [true; 9],
+            candidates: [true; 9],
         }; 9]; 9];
         assert_eq!(is_solved(test_grid), true);
     }
@@ -16,7 +16,7 @@ mod tests {
     fn can_check_unsolved() {
         let mut test_grid: [[Cell; 9]; 9] = [[Cell {
             value: 1,
-            possible: [true; 9],
+            candidates: [true; 9],
         }; 9]; 9];
         test_grid[8][8].value = BLANK_CELL_VALUE;
         assert_eq!(is_solved(test_grid), false);
