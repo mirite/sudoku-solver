@@ -4,34 +4,37 @@ use crate::{BLANK_CELL_VALUE, GRID_SIZE, GRID_SIZE_RANGE};
 use std::usize;
 
 pub fn is_valid_grid(grid: [[Cell; GRID_SIZE]; GRID_SIZE]) -> bool {
-    for r in GRID_SIZE_RANGE {
-        for c in GRID_SIZE_RANGE {
-            if grid[r][c].value != BLANK_CELL_VALUE && !is_valid(grid, r, c, grid[r][c].value) {
+    for row in GRID_SIZE_RANGE {
+        for column in GRID_SIZE_RANGE {
+            if grid[row][column].value != BLANK_CELL_VALUE
+                && !is_valid_cell_value(grid, row, column, grid[row][column].value)
+            {
                 return false;
             }
         }
     }
     true
 }
-pub fn is_valid(
+
+pub fn is_valid_cell_value(
     grid: [[Cell; GRID_SIZE]; GRID_SIZE],
-    row: usize,
-    column: usize,
+    cell_row: usize,
+    cell_column: usize,
     value: usize,
 ) -> bool {
-    is_valid_for_row(grid, row, column, value)
-        && is_valid_for_column(grid, row, column, value)
-        && is_valid_for_square(grid, row, column, value)
+    is_valid_for_row(grid, cell_row, cell_column, value)
+        && is_valid_for_column(grid, cell_row, cell_column, value)
+        && is_valid_for_square(grid, cell_row, cell_column, value)
 }
 
 pub fn is_valid_for_row(
     grid: [[Cell; GRID_SIZE]; GRID_SIZE],
-    row: usize,
-    column: usize,
+    cell_row: usize,
+    cell_column: usize,
     value: usize,
 ) -> bool {
-    for col in GRID_SIZE_RANGE {
-        if grid[row][col].value == value && col != column {
+    for same_row_column in GRID_SIZE_RANGE {
+        if grid[cell_row][same_row_column].value == value && same_row_column != cell_column {
             return false;
         }
     }
@@ -40,12 +43,12 @@ pub fn is_valid_for_row(
 
 pub fn is_valid_for_column(
     grid: [[Cell; GRID_SIZE]; GRID_SIZE],
-    row: usize,
-    column: usize,
+    cell_row: usize,
+    cell_column: usize,
     value: usize,
 ) -> bool {
-    for r in GRID_SIZE_RANGE {
-        if grid[r][column].value == value && r != row {
+    for same_column_row in GRID_SIZE_RANGE {
+        if grid[same_column_row][cell_column].value == value && same_column_row != cell_row {
             return false;
         }
     }
@@ -54,14 +57,17 @@ pub fn is_valid_for_column(
 
 pub fn is_valid_for_square(
     grid: [[Cell; GRID_SIZE]; GRID_SIZE],
-    row: usize,
-    column: usize,
+    cell_row: usize,
+    cell_column: usize,
     value: usize,
 ) -> bool {
-    let (r_range, c_range) = get_square_ranges(row, column);
-    for r in r_range {
-        for c in c_range.clone() {
-            if grid[r][c].value == value && r != row && c != column {
+    let (r_range, c_range) = get_square_ranges(cell_row, cell_column);
+    for same_square_row in r_range {
+        for same_square_column in c_range.clone() {
+            if grid[same_square_row][same_square_column].value == value
+                && same_square_row != cell_row
+                && same_square_column != cell_column
+            {
                 return false;
             }
         }

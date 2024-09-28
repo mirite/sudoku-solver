@@ -2,7 +2,8 @@
 mod tests {
     use crate::input::{read_grid, Cell};
     use crate::possible::{
-        calculate_possible_for_cells, get_possible_placements_for_value, is_only_possible_placement,
+        calculate_candidates_for_cells, get_possible_placements_for_value,
+        is_only_possible_placement,
     };
 
     use crate::{BLANK_CELL_VALUE, CELL_VALUE_RANGE, GRID_SIZE_RANGE};
@@ -32,7 +33,7 @@ mod tests {
         test_grid[3][1].value = 3;
         test_grid[4][1].value = 9;
 
-        test_grid = calculate_possible_for_cells(test_grid);
+        test_grid = calculate_candidates_for_cells(test_grid);
         for r in 0..3 {
             for c in 0..3 {
                 for n in CELL_VALUE_RANGE {
@@ -63,7 +64,7 @@ mod tests {
     fn calculate_possible_placements() {
         let data = read_to_string("test_grids/easyToSolve.txt").unwrap();
         let mut grid = read_grid(data).unwrap();
-        grid = calculate_possible_for_cells(grid);
+        grid = calculate_candidates_for_cells(grid);
         let possibles = get_possible_placements_for_value(grid, 7);
         for r in GRID_SIZE_RANGE {
             for c in GRID_SIZE_RANGE {
@@ -92,7 +93,7 @@ mod tests {
     fn can_handle_every_possible() {
         let data = read_to_string("test_grids/allEmpty.txt").unwrap();
         let mut grid = read_grid(data).unwrap();
-        grid = calculate_possible_for_cells(grid);
+        grid = calculate_candidates_for_cells(grid);
         for r in GRID_SIZE_RANGE {
             for c in GRID_SIZE_RANGE {
                 for n in CELL_VALUE_RANGE {
@@ -106,7 +107,7 @@ mod tests {
     fn test_is_only_possible_placement() {
         let data = read_to_string("test_grids/easyToSolve.txt").unwrap();
         let mut grid = read_grid(data).unwrap();
-        grid = calculate_possible_for_cells(grid);
+        grid = calculate_candidates_for_cells(grid);
         let possibles = get_possible_placements_for_value(grid, 7);
         for r in GRID_SIZE_RANGE {
             for c in GRID_SIZE_RANGE {

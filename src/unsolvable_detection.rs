@@ -4,12 +4,13 @@ use crate::{BLANK_CELL_VALUE, CELL_VALUE_RANGE, GRID_SIZE, GRID_SIZE_RANGE};
 
 /// Determines if a grid is in an unsolvable state.
 pub fn is_unsolvable(grid: [[Cell; GRID_SIZE]; GRID_SIZE]) -> bool {
-    for r in GRID_SIZE_RANGE {
-        for c in GRID_SIZE_RANGE {
-            if grid[r][c].value != BLANK_CELL_VALUE {
+    for grid_row in GRID_SIZE_RANGE {
+        for grid_column in GRID_SIZE_RANGE {
+            if grid[grid_row][grid_column].value != BLANK_CELL_VALUE {
                 continue;
             }
-            let (possible_values, only_possible_value) = get_possible_count(grid, r, c);
+            let (possible_values, only_possible_value) =
+                get_possible_count(grid, grid_row, grid_column);
             if possible_values == 0 {
                 return true;
             }
@@ -17,24 +18,36 @@ pub fn is_unsolvable(grid: [[Cell; GRID_SIZE]; GRID_SIZE]) -> bool {
             if only_possible_value != 0 {
                 // Check if there are any other cells where there is only the one possible value.
                 //Check for other cells in the same row
-                for col in GRID_SIZE_RANGE {
-                    if is_conflicting_cell(grid, r, c, r, col) {
+                for same_row_column in GRID_SIZE_RANGE {
+                    if is_conflicting_cell(grid, grid_row, grid_column, grid_row, same_row_column) {
                         return true;
                     }
                 }
 
                 //Check for other cells in the same column
-                for row in GRID_SIZE_RANGE {
-                    if is_conflicting_cell(grid, r, c, row, c) {
+                for same_column_row in GRID_SIZE_RANGE {
+                    if is_conflicting_cell(
+                        grid,
+                        grid_row,
+                        grid_column,
+                        same_column_row,
+                        grid_column,
+                    ) {
                         return true;
                     }
                 }
 
                 //Check for other cells in the same square
-                let (r_range, c_range) = get_square_ranges(r, c);
-                for row in r_range {
-                    for column in c_range.clone() {
-                        if is_conflicting_cell(grid, r, c, row, column) {
+                let (r_range, c_range) = get_square_ranges(grid_row, grid_column);
+                for same_square_row in r_range {
+                    for same_square_column in c_range.clone() {
+                        if is_conflicting_cell(
+                            grid,
+                            grid_row,
+                            grid_column,
+                            same_square_row,
+                            same_square_column,
+                        ) {
                             return true;
                         }
                     }

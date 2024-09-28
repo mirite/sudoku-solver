@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
     use crate::input::{read_grid, Cell, InputError};
-    use crate::validity::{is_valid, is_valid_grid};
+    use crate::validity::{is_valid_cell_value, is_valid_grid};
     use crate::BLANK_CELL_VALUE;
     use std::fs::read_to_string;
 
@@ -12,7 +12,7 @@ mod tests {
             candidates: [true; 9],
         }; 9]; 9];
         test_grid[0][0].value = 1;
-        assert_eq!(is_valid(test_grid, 0, 3, 1), false)
+        assert_eq!(is_valid_cell_value(test_grid, 0, 3, 1), false)
     }
 
     #[test]
@@ -22,7 +22,7 @@ mod tests {
             candidates: [true; 9],
         }; 9]; 9];
         test_grid[0][0].value = 1;
-        assert_eq!(is_valid(test_grid, 0, 3, 2), true)
+        assert_eq!(is_valid_cell_value(test_grid, 0, 3, 2), true)
     }
 
     #[test]
@@ -32,7 +32,7 @@ mod tests {
             candidates: [true; 9],
         }; 9]; 9];
         test_grid[0][0].value = 1;
-        assert_eq!(is_valid(test_grid, 0, 0, 1), true)
+        assert_eq!(is_valid_cell_value(test_grid, 0, 0, 1), true)
     }
 
     #[test]
@@ -42,7 +42,7 @@ mod tests {
             candidates: [true; 9],
         }; 9]; 9];
         test_grid[0][0].value = 1;
-        assert_eq!(is_valid(test_grid, 3, 0, 1), false)
+        assert_eq!(is_valid_cell_value(test_grid, 3, 0, 1), false)
     }
 
     #[test]
@@ -52,7 +52,7 @@ mod tests {
             candidates: [true; 9],
         }; 9]; 9];
         test_grid[0][0].value = 1;
-        assert_eq!(is_valid(test_grid, 3, 0, 2), true)
+        assert_eq!(is_valid_cell_value(test_grid, 3, 0, 2), true)
     }
 
     #[test]
@@ -62,7 +62,7 @@ mod tests {
             candidates: [true; 9],
         }; 9]; 9];
         test_grid[0][0].value = 1;
-        assert_eq!(is_valid(test_grid, 2, 1, 1), false)
+        assert_eq!(is_valid_cell_value(test_grid, 2, 1, 1), false)
     }
 
     #[test]
@@ -72,7 +72,7 @@ mod tests {
             candidates: [true; 9],
         }; 9]; 9];
         test_grid[3][0].value = 1;
-        assert_eq!(is_valid(test_grid, 4, 1, 1), false)
+        assert_eq!(is_valid_cell_value(test_grid, 4, 1, 1), false)
     }
 
     #[test]
@@ -82,7 +82,7 @@ mod tests {
             candidates: [true; 9],
         }; 9]; 9];
         test_grid[7][7].value = 1;
-        assert_eq!(is_valid(test_grid, 8, 8, 1), false)
+        assert_eq!(is_valid_cell_value(test_grid, 8, 8, 1), false)
     }
 
     #[test]
@@ -92,7 +92,7 @@ mod tests {
             candidates: [true; 9],
         }; 9]; 9];
         test_grid[0][0].value = 1;
-        assert_eq!(is_valid(test_grid, 2, 1, 2), true)
+        assert_eq!(is_valid_cell_value(test_grid, 2, 1, 2), true)
     }
 
     #[test]

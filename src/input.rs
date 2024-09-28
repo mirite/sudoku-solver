@@ -24,9 +24,10 @@ pub fn read_grid(content: String) -> Result<[[Cell; GRID_SIZE]; GRID_SIZE], Inpu
         return Err(InputError::InvalidLineCount);
     }
 
-    for r in GRID_SIZE_RANGE {
-        for c in GRID_SIZE_RANGE {
-            let cell_value: Result<usize, InputError> = match lines[r].chars().nth(c) {
+    for row in GRID_SIZE_RANGE {
+        for column in GRID_SIZE_RANGE {
+            let parsed_cell_value: Result<usize, InputError> = match lines[row].chars().nth(column)
+            {
                 Some(char) => match char.to_digit(10) {
                     Some(digit) => match usize::try_from(digit) {
                         Ok(valid_digit) => Ok(valid_digit),
@@ -36,11 +37,11 @@ pub fn read_grid(content: String) -> Result<[[Cell; GRID_SIZE]; GRID_SIZE], Inpu
                 },
                 None => Err(InputError::InvalidLineLength),
             };
-            match cell_value {
-                Ok(v) => {
-                    result_grid[r][c].value = v;
+            match parsed_cell_value {
+                Ok(value) => {
+                    result_grid[row][column].value = value;
                     for p in GRID_SIZE_RANGE {
-                        result_grid[r][c].candidates[p] = match v {
+                        result_grid[row][column].candidates[p] = match value {
                             BLANK_CELL_VALUE => true,
                             _ => false,
                         }
@@ -69,15 +70,15 @@ pub fn print_grid(grid: [[Cell; GRID_SIZE]; GRID_SIZE]) {
 
 pub fn grid_to_string(grid: [[Cell; GRID_SIZE]; GRID_SIZE]) -> String {
     let mut result: String = String::from("");
-    for r in GRID_SIZE_RANGE {
-        for c in GRID_SIZE_RANGE {
-            result.push_str(&format!("{}", grid[r][c].value));
-            if c % 3 == 2 && c != 8 {
+    for row in GRID_SIZE_RANGE {
+        for column in GRID_SIZE_RANGE {
+            result.push_str(&format!("{}", grid[row][column].value));
+            if column % 3 == 2 && column != 8 {
                 result.push_str("|");
             }
-            if c == 8 {
+            if column == 8 {
                 result.push_str("\n");
-                if r % 3 == 2 && r != 8 {
+                if row % 3 == 2 && row != 8 {
                     result.push_str("-----------\n");
                 }
             }
