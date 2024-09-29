@@ -63,11 +63,12 @@ input[type="reset"] {
   justify-content: center;
   align-items: center;
   padding: 0.5rem;
+  border-style: none;
+  border-width: 2px;
+  border-color: black;
 }
 
 .separator {
-  border-width: 2px;
-  border-color: black;
 }
 .column-separator {
   border-right-style: solid;
