@@ -1,32 +1,33 @@
 {
-  "name": "@mirite/sudoku-solver",
-  "version": "1.0.0",
-  "description": "A WASM Sudoku Solver",
-  "type": "module",
-  "private": "true",
-  "scripts": {
-    "build": "wasm-pack build --target web --out-name wasm --out-dir ./web/pkg",
-    "lint": "eslint . --fix",
-    "format": "prettier --write . ; cargo fmt"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/mirite/sudoku-solver.git"
-  },
-  "keywords": [
-    "WASM",
-    "Rust"
-  ],
-  "author": "Jesse Conner <me@jesseconner.ca>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mirite/sudoku-solver/issues"
-  },
-  "homepage": "https://github.com/mirite/sudoku-solver#readme",
-  "devDependencies": {
-    "@mirite/eslint-config-mirite": "^0.0.5",
-    "eslint": "^9.11.1",
-    "prettier": "^3.3.3",
-    "prettier-plugin-jsdoc": "^1.3.0"
-  }
+	"name": "@mirite/sudoku-solver",
+	"version": "1.0.0",
+	"private": "true",
+	"description": "A WASM Sudoku Solver",
+	"keywords": [
+		"WASM",
+		"Rust"
+	],
+	"homepage": "https://github.com/mirite/sudoku-solver#readme",
+	"bugs": {
+		"url": "https://github.com/mirite/sudoku-solver/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@github.com/mirite/sudoku-solver.git"
+	},
+	"license": "MIT",
+	"author": "Jesse Conner <me@jesseconner.ca>",
+	"type": "module",
+	"scripts": {
+		"build": "wasm-pack build --target web --out-name wasm --out-dir ./web/pkg",
+		"format": "prettier --write . ; cargo fmt",
+		"lint": "eslint . --fix"
+	},
+	"devDependencies": {
+		"@mirite/eslint-config-mirite": "^1.1.0",
+		"eslint": "^9.11.1",
+		"prettier": "^3.3.3",
+		"prettier-plugin-jsdoc": "^1.3.0"
+	},
+	"packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
