@@ -4,16 +4,15 @@ import init, { solve_puzzle } from "./pkg/wasm.js";
 /**
  * The input cells in the grid.
  *
- * @type {HTMLDivElement[]}
  */
 const inputs = [];
 
 /**
  * Creates one of the number input cells in the grid.
  *
- * @param {number} row The row of the cell.
- * @param {number} column The column of the cell.
- * @returns {HTMLDivElement} The div container for the input cell.
+ * @param row The row of the cell.
+ * @param column The column of the cell.
+ * @returns The div container for the input cell.
  */
 function createInputCell(row, column) {
 	const input = document.createElement("input");
@@ -45,7 +44,7 @@ function handleReset() {
 /**
  * Handles the form submission event.
  *
- * @param {Event} e The form submission event.
+ * @param e The form submission event.
  */
 function handleSolve(e) {
 	e.preventDefault();
